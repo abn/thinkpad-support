@@ -1,0 +1,5 @@
+#!/bin/sh
+cat <<EOF
+extra_cmdline="${extra_cmdline} acpi.ec_no_wakeup=1"
+EOF
+
