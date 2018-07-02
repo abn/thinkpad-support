@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -e
+
+function set_registry_address(){
+    local version=$(thinkpad-system-version)
+
+    case "${version}" in
+        "ThinkPad X1 Carbon 6th") registry_address="0x1a2" ;;
+	"") echo >&2 "ERROR: Failed to retrieve system information" && exit 1 ;;
+        *) echo >&2 "ERROR: Unknown System '${version}'" && exit 1 ;;
+    esac
+}
+
+set_registry_address
+
+# Reference: https://wiki.archlinux.org/index.php/Lenovo_ThinkPad_X1_Carbon_(Gen_6)#Temporary_fix
+/usr/sbin/wrmsr -a ${registry_address}  ${1:-${THINKPAD_THROTTLING_THERMAL_OFFSET:-0x3000000}}

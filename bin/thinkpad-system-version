@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+set -e
+
+dmidecode -t system | grep -Po "(?<=Version: ).*"

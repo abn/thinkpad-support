@@ -1,0 +1,11 @@
+[Unit]
+Description=set cpu heating limit to 97°c
+
+[Service]
+EnvironmentFile=-/etc/sysconfig/thinkpad-throttle
+ExecStart=/usr/sbin/thinkpad-throttle-offset
+RemainAfterExit=no
+
+[Install]
+WantedBy=timers.target
+
