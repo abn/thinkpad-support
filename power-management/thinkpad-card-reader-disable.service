@@ -1,0 +1,9 @@
+[Unit]
+Description=Disable Card Reader to save 2-3W
+
+[Service]
+ExecStart=/usr/sbin/thinkpad-card-reader off
+RemainAfterExit=no
+
+[Install]
+WantedBy=default.target

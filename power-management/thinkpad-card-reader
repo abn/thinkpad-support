@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+set -e
+
+function error_log(){
+    echo >&2 "ERROR: $1" && exit 1
+}
+
+function set_device(){
+    local version=$(thinkpad-system-version)
+
+    case "${version}" in
+        "ThinkPad X1 Carbon 6th") device="2-3" ;;
+	"") error_log "Failed to retrieve system information";;
+         *) error_log"Unknown System '${version}'";;
+    esac
+}
+
+set_device
+
+case $1 in
+on)
+    echo "${device}" | tee /sys/bus/usb/drivers/usb/bind > /dev/null;;
+off)
+    echo "${device}" | tee /sys/bus/usb/drivers/usb/unbind > /dev/null;;
+*)
+    error_log "Unsupported argument '$1'. Expected on|off.";;
+esac
+
